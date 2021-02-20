@@ -23,11 +23,11 @@ module.exports = { Query: {
       return message;
     },
     deleteMessage: (parent, { id }) => {
-        const { [id]: message, ...otherMessages } = messages;
-        if (!message) {
+        const messageExists = !!messages.find(({ id: messageID }) => id == messageID);
+        if (!messageExists) {
             return false;
         }
-        messages = otherMessages;
+        messages = messages.filter(({ id: messageID }) => messageID != id);
         return true;
     },
   },
