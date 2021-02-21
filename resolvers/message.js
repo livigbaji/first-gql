@@ -1,4 +1,4 @@
-let messages = require('../models/mesage');
+let messages = require('../models/message');
 const users = require('../models/user');
 const _ = require('lodash');
 

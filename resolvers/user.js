@@ -1,19 +1,21 @@
 
-const users = require('../models/user');
-const messages = require('../models/mesage');
+const User = require('../models/user');
+const Message = require('../models/message');
 
 module.exports =  { 
-    Query: {
-        users: (parent, args) => {
-            return users;
-        },
-        user: (parent, { id }) => {
-            return users.find(({ id: userID }) => userID == id);
-        }, 
-    },
-    User: {
-        messages: (user, args, { models }) => {
-            return messages.filter(({ user_id }) => user_id == user.id);
-        },
-    }, 
+	Query: {
+		users: () => {
+			return User.findAll();
+		},
+		user: (parent, { id }) => {
+			return User.findByPk(id);
+		}, 
+	},
+	User: {
+		messages: (user) => {
+			return Message.findAll({  
+				where: { user_id: user.id }
+			});
+		},
+	}, 
 };
